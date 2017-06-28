@@ -100,10 +100,13 @@ var dayModule = (function () {
     // adding to the day object
     switch (attraction.type) {
       case 'hotel':
-        if (this.hotel) this.hotel.hide();
-        this.hotel = attraction;
-        // make ajax request to set hotel
         $.post(`/days/${this.number}/hotels`, {name: attraction.name})
+        .then(response => {
+          if (this.hotel) this.hotel.hide();
+          this.hotel = attraction;
+          attraction.show();
+        })
+        // make ajax request to set hotel
         break;
       case 'restaurant':
         utilsModule.pushUnique(this.restaurants, attraction);
