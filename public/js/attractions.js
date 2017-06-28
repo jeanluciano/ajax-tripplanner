@@ -10,12 +10,15 @@
 var attractionsModule = (function () {
 
   // application state
+  console.log('Before error')
 
-  var enhanced = {
-    hotels: hotels.map(attractionModule.create),
-    restaurants: restaurants.map(attractionModule.create),
-    activities: activities.map(attractionModule.create),
-  };
+// ***************************
+  // var enhanced = {
+  //   hotels: hotels.map(attractionModule.create),
+  //   restaurants: restaurants.map(attractionModule.create),
+  //   activities: activities.map(attractionModule.create),
+  // };
+// ***************************
 
   // private helper methods (only available inside the module)
 
@@ -45,7 +48,7 @@ var attractionsModule = (function () {
     }
 
   };
-
+  console.log('Did it get here?')
   return publicAPI;
 
 }());
