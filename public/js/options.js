@@ -9,6 +9,7 @@
  * then tells the trip module to add the attraction.
  */
 
+
 $(function(){
 
   // jQuery selects
@@ -17,10 +18,15 @@ $(function(){
   var $restaurantSelect = $optionsPanel.find('#restaurant-choices');
   var $activitySelect = $optionsPanel.find('#activity-choices');
 
+/*
+  ajax request 
+      then run the for each to populate the select tag
+*/hotels.forEach(makeOption, $hotelSelect);
+restaurants.forEach(makeOption, $restaurantSelect);
+activities.forEach(makeOption, $activitySelect);
+
   // make all the option tags (second arg of `forEach` is a `this` binding)
-  hotels.forEach(makeOption, $hotelSelect);
-  restaurants.forEach(makeOption, $restaurantSelect);
-  activities.forEach(makeOption, $activitySelect);
+  
 
   function makeOption (databaseAttraction) {
     var $option = $('<option></option>') // makes a new option tag
