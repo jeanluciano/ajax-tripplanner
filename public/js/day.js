@@ -98,12 +98,18 @@ var dayModule = (function () {
       case 'hotel':
         if (this.hotel) this.hotel.hide();
         this.hotel = attraction;
+        // make ajax request to set hotel
+        $.post(`/days/${this.number}/hotels`, {name: attraction.name})
         break;
       case 'restaurant':
         utilsModule.pushUnique(this.restaurants, attraction);
+        // make ajax request to add restaurant
+        $.post(`/days/${this.number}/restaurants`, {name: attraction.name})
         break;
       case 'activity':
         utilsModule.pushUnique(this.activities, attraction);
+        // make ajax request to add activity
+        $.post(`/days/${this.number}/activities`, {name: attraction.name})
         break;
       default: console.error('bad type:', attraction);
     }
@@ -116,12 +122,35 @@ var dayModule = (function () {
     switch (attraction.type) {
       case 'hotel':
         this.hotel = null;
+        $.ajax({
+          url: `/days/${this.number}/hotels`,
+          type: 'DELETE',
+          data: {name: attraction.name}
+        })
+        .then(console.log.bind(console))
+        .catch(console.error.bind(console))
         break;
       case 'restaurant':
         utilsModule.remove(this.restaurants, attraction);
+
+        $.ajax({
+          url: `/days/${this.number}/restaurants`,
+          type: 'DELETE',
+          data: {name: attraction.name}
+        })
+        .then(console.log.bind(console))
+        .catch(console.error.bind(console))
+
         break;
       case 'activity':
         utilsModule.remove(this.activities, attraction);
+        $.ajax({
+          url: `/days/${this.number}/activities`,
+          type: 'DELETE',
+          data: {name: attraction.name}
+        })
+        .then(console.log.bind(console))
+        .catch(console.error.bind(console))
         break;
       default: console.error('bad type:', attraction);
     }

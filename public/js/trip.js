@@ -19,8 +19,9 @@ var tripModule = (function () {
 
   // application state
 
-  var days = [],
-      currentDay;
+  // days = days.map(dayModule.create)
+  console.log('This is the daysArr after enhancement', days)
+  var currentDay;
 
   // jQuery selections
 
@@ -48,7 +49,7 @@ var tripModule = (function () {
   function addDay () {
     if (this && this.blur) this.blur(); // removes focus box from buttons
     var newDay = dayModule.create({ number: days.length + 1 }); // dayModule
-    
+
     $.post('/days', {number:days.length +1})
       .then(data =>{
         console.log('Post response data:', data)
@@ -73,8 +74,15 @@ var tripModule = (function () {
     days.forEach(function (day, i) {
       day.setNumber(i + 1);
     });
+    $.ajax({
+          url: `/days/${currentDay.number}`,
+          type: 'DELETE',
+        })
+        .then(console.log.bind(console))
+        .catch(console.error.bind(console))
     switchTo(newCurrent);
     previousDay.hideButton();
+
   }
 
   // globally accessible module methods
@@ -82,7 +90,8 @@ var tripModule = (function () {
   var publicAPI = {
 
     load: function () {
-      $(addDay);
+      // $(addDay);
+      switchTo(days[0])
     },
 
     switchTo: switchTo,

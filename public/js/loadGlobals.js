@@ -1,6 +1,7 @@
   var hotels
   var restaurants
   var activities
+  var days;
 
 
 $.ajax({
@@ -26,4 +27,19 @@ $.ajax({
     async: false
 })
 .done(response => { activities = response })
+
+$.ajax({
+    url: '/days',
+    type: 'GET',
+    dataType: 'json',
+    async: false
+})
+.done(response => { days = response })
+
+console.log('This is the days response', days);
+
+// ajax request /days
+// get arr of days
+// convert db days to enhanced days
+//
 
